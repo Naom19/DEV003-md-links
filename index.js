@@ -1,5 +1,6 @@
 const { existsRoute, getAbsolutePath } = require('./api.js');
 
+
 // Definimos la función mdLinks que recibe 2 parámetros y devuelve una nueva promesa (asíncrona)
 const mdLinks = (route, options) => {
   // nota las opciones son objetos
@@ -23,10 +24,18 @@ const mdLinks = (route, options) => {
     }
     // Revisar si la ruta absoluta es un file o directorio
     // En caso de que sea un directorio: filtra archivos md y resuelve un Array de objetos(links)
-    
+
   
   });
 };
+
+//console.log(existsRoute);
+
+mdLinks('C:\\Users\\Naomi\\DEV003-md-links\\README.md').then( () => {
+
+}).catch( (error) => {
+  console.log(error);
+})
 
 // resolve se va a invocar al final
 // nota una vez terminada la función mdLinks, se va a ejecutar en CLI (donde se imprime con console.log)

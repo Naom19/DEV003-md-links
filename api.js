@@ -7,7 +7,6 @@ const path = require('path');
  * @returns {boolean} 
  */
 const existsRoute = (route) => fs.existsSync(route);
-
 /**
  * Si recibe una ruta absoluta la retorna sin modificarla
  * Si recibe una ruta relativa la convierte en absoluta y la retorna
@@ -19,10 +18,5 @@ const getAbsolutePath = (route) => path.isAbsolute(route) ? route : path.resolve
 
 // crear función que valide si el archivo es md con extname (extension md)y buscar si la extension es .md
 
-
-module.exports = () => {
-    // ...
-    existsRoute,
-    getAbsolutePath
-  };
-  
+module.exports.existsRoute = existsRoute;
+module.exports.getAbsolutePath = getAbsolutePath;
