@@ -1,4 +1,4 @@
-const { existsRoute, getAbsolutePath } = require('./api.js');
+const { existsRoute, getAbsolutePath, fileExt } = require('./api.js');
 
 
 // Definimos la función mdLinks que recibe 2 parámetros y devuelve una nueva promesa (asíncrona)
@@ -16,16 +16,15 @@ const mdLinks = (route, options) => {
     } 
     // Evaluar si la ruta es absoluta, en caso de que no convertirla
     const newRoute = getAbsolutePath(route);
-    // crear función utilizando path.extname(path);
-    let mdFiles = [];
-   
-    if (path.extname(newRoute) === ".md") {
-      mdFiles.push(newRoute);
-    }
     // Revisar si la ruta absoluta es un file o directorio
     // En caso de que sea un directorio: filtra archivos md y resuelve un Array de objetos(links)
+    let mdFiles = [];
+   
+    if (fileExt(newRoute) === ".md") {
+      mdFiles.push(newRoute);
+    }
+    
 
-  
   });
 };
 

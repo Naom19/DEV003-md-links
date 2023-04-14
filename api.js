@@ -17,6 +17,14 @@ const getAbsolutePath = (route) => path.isAbsolute(route) ? route : path.resolve
 // crear archivo md para probar las funciones auxiliares
 
 // crear función que valide si el archivo es md con extname (extension md)y buscar si la extension es .md
+// la función se describe con operador ternario y que devuelva solo los archivos .md, en index se pasa con if
+
+function fileExt(newRoute) {
+    return path.extname(newRoute) === ".md";
+        //mdFiles.push(newRoute);
+};
+
 
 module.exports.existsRoute = existsRoute;
 module.exports.getAbsolutePath = getAbsolutePath;
+module.exports.fileExt = fileExt;
