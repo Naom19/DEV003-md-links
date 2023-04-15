@@ -24,7 +24,21 @@ function fileExt(newRoute) {
         //mdFiles.push(newRoute);
 };
 
+function readFiles(newRoute) {
+    return new Promise((resolve, reject) => {
+        fs.readFile(newRoute, 'utf8', (error, data) => {
+            if (error) {
+                console.log('Failed to read file');
+                reject(error)
+            } else {
+                resolve(data)
+            }
+        });
+    })
+};
+
 
 module.exports.existsRoute = existsRoute;
 module.exports.getAbsolutePath = getAbsolutePath;
 module.exports.fileExt = fileExt;
+module.exports.readFiles = readFiles;

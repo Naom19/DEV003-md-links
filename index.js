@@ -1,4 +1,4 @@
-const { existsRoute, getAbsolutePath, fileExt } = require('./api.js');
+const { existsRoute, getAbsolutePath, fileExt, readFiles } = require('./api.js');
 
 
 // Definimos la función mdLinks que recibe 2 parámetros y devuelve una nueva promesa (asíncrona)
