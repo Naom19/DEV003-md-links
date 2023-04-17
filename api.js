@@ -36,9 +36,10 @@ function readFiles(newRoute) {
         });
     })
 };
-
+// función para obtener el link del archivo .md
 function extractLinks(newRoute) {
-    const regex = /\[(.+)\]\((https?:\/\/\w+.+)\)/g;
+    const regex = /\[(.+)\]\((https?:\/\/\w+.+)\)/g; 
+    //expresión regular para obtener el link URL completo en un grupo, se usa .+ para hacer match con 1 o más caracteres dentro de [()]
 }
 
 
