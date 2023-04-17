@@ -37,8 +37,13 @@ function readFiles(newRoute) {
     })
 };
 
+function extractLinks(newRoute) {
+    const regex = /\[(.+)\]\((https?:\/\/\w+.+)\)/g;
+}
+
 
 module.exports.existsRoute = existsRoute;
 module.exports.getAbsolutePath = getAbsolutePath;
 module.exports.fileExt = fileExt;
 module.exports.readFiles = readFiles;
+module.exports.extractLinks = extractLinks;
