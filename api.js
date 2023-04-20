@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const fetch = require('node-fetch');
 
 /**
  * 
@@ -66,9 +67,37 @@ const urlToObjects =  arrayUrl.map((element) => {
 
 //  --función validUrl toma el arreglo de los objetos y valida los links
 
-function validUrl(urlToObjects) {
-    
-}
+async function validUrl(urlToObjects) {
+    // usamos map para asignar cada objeto a una promesa de validación
+    const validatePromises = urlToObjects.map(async (element) => {
+      try {
+        const response = await fetch(element.href);
+        return {
+        // ... es un operador de propagación, crea un nuevo objeto que contiene todas las propiedades del objeto de entrada, 
+        // (continuación así como prop adicionales que agrega fx validUrl
+          ...element, 
+          status: response.status,
+          statusText: response.statusText,
+          isValid: response.ok,
+        };
+      } catch (error) {
+        // En caso de que haya un error (un problema de red) marcamos el enlace como inválido
+        return {
+          ...element,
+          status: null,
+          statusText: 'Error',
+          isValid: false,
+        };
+      }
+    });
+
+    // Esperamos a que se completen todas las promesas que validan
+    const validatedObjects = await Promise.all(validatePromises);
+  
+    // Devuelve los resultados de validación
+    return validatedObjects;
+  }
+  
 
 //  --integrar funciones aux en mdLinks
 
