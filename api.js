@@ -24,6 +24,7 @@ function fileExt(newRoute) {
         //mdFiles.push(newRoute);
 };
 
+// lee el archivo y devuelve un string
 function readFiles(newRoute) {
     return new Promise((resolve, reject) => {
         fs.readFile(newRoute, 'utf8', (error, data) => {
@@ -36,11 +37,41 @@ function readFiles(newRoute) {
         });
     })
 };
-// función para obtener el link del archivo .md
-function extractLinks(newRoute) {
-    const regex = /\[(.+)\]\((https?:\/\/\w+.+)\)/g; 
-    //expresión regular para obtener el link URL completo en un grupo, se usa .+ para hacer match con 1 o más caracteres dentro de [()]
+
+// --esta función toma el string y compara si tiene https(link) y devuelve un arreglo con los links
+function extractLinks(fileContent) {
+    // filecontent=dsiudhiqdwhuqdwidhu](https...
+    const regExp = /\[(.+)\]\((https?:\/\/\w+.+)\)/g; 
+    //expresión regular que toma el string (cadena de texto) para obtener el link (URL) completo en 1 grupo, se usa .+ para hacer match con 1 o más caracteres dentro de [()]
+    const arrayUrl = fileContent.match(regExp);
+    //devuelve un arreglo de links
+    return arrayUrl;//[ '[Google](https://www.google.com)', '[Google](https://www.google.com)']
+};
+
+// abrir el archivo
+archivo = open('ruta que me pusieron al ejecutar el api en terminal')
+
+resultado = extractLinks(archivo)
+arreglodeObjetos = extraerObjectos(resultado)
+
+// --urlToObjects toma el arreglo de links y lo transforma en un arreglo de objetos con .map
+const urlToObjects =  arrayUrl.map((element) => {
+    return {
+    // agregamos las propiedades:
+     href: element.slice(element.indexOf('](h') + 2, -1),
+     text: element.slice(1, element.indexOf(']')),
+     file: fileContent // o newRoute?
+   };
+});
+
+//  --función validUrl toma el arreglo de los objetos y valida los links
+
+function validUrl(urlToObjects) {
+    
 }
+
+//  --integrar funciones aux en mdLinks
+
 
 
 module.exports.existsRoute = existsRoute;

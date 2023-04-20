@@ -1,4 +1,5 @@
-const { existsRoute, getAbsolutePath, fileExt, readFiles } = require('./api.js');
+const { existsRoute, getAbsolutePath, fileExt, readFiles,
+extractLinks } = require('./api.js');
 
 
 // Definimos la función mdLinks que recibe 2 parámetros y devuelve una nueva promesa (asíncrona)
@@ -23,6 +24,8 @@ const mdLinks = (route, options) => {
     if (fileExt(newRoute) === ".md") {
       mdFiles.push(newRoute);
     }
+
+    if (!extractLinks)
     
 
   });
