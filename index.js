@@ -27,19 +27,14 @@ const mdLinks = (route, options) => {
     try {
       const fileContents = await Promise.all(
         mdFiles.map((file) => readFiles(file))
-      )
+      );
 
       const allLinks = fileContents.flatMap((fileContent) => {
-        extractLinks(fileContent)
+        return extractLinks(fileContent);
       });
+      
 
-      const linkObjects = allLinks.map((link, index) => {
-        return {
-          href: link.slice(link.indexOf("](h") + 2, -1),
-          text: link.slice(1, link.indexOf("]")),
-          file: mdFiles[index],
-        };
-      });
+      const linkObjects = urlToObjects(allLinks, mdFiles);
 
       if (options && options.validate) {
         const validatedLinks = await validUrl(linkObjects);
@@ -47,13 +42,12 @@ const mdLinks = (route, options) => {
       } else {
         resolve(linkObjects);
       }
-    }
-    catch (error) {
+    } catch (error) {
       reject("Error procesando archivos md / Error processing Markdown files");
     }
 
-  })
-}
+  });
+};
 
 //console.log(existsRoute);
 
@@ -70,7 +64,6 @@ mdLinks('C:\\Users\\Naomi\\DEV003-md-links\\README.md', { validate: true })
 // las funciones pequeñas de api.js tienen que ser funciones puras
 
 module.exports = () => {
-  // ...
   mdLinks
 };
 
