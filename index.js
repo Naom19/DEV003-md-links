@@ -34,13 +34,33 @@ const mdLinks = (route, options) => {
     // Aquí añadimos el manejo de directorios (pendiente)
    
     try {
-      const fileContent = await Promise.all(
+      const fileContents = await Promise.all(
         mdFiles.map((file) => readFiles(file))
       );
-    }
     
+    
+    const allLinks = fileContents.flatMap((fileContent)) => 
+      extractLinks(fileContent)
+    );
 
-  });
+    const linkObjects = allLinks.map((link, index) => {
+      return{
+        href:
+        text:
+        file:
+      };
+    });
+
+    if (options && options.validate) {
+      const validatedLinks = await validUrl(linkObjects);
+      resolve(validatedLinks);
+    } else {
+      resolve(linkObjects);
+    }
+  } catch (error) {
+    reject("Error procesando archivos md / Error processing Markdown files");
+  }
+});
 };
 
 //console.log(existsRoute);
