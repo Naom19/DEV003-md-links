@@ -56,14 +56,15 @@ resultado = extractLinks(archivo)
 arreglodeObjetos = extraerObjectos(resultado)
 
 // --urlToObjects toma el arreglo de links y lo transforma en un arreglo de objetos con .map
-const urlToObjects =  arrayUrl.map((element) => {
+function urlToObjects (arrayUrl) {
+  return arrayUrl.map((element) => {
     return {
-    // agregamos las propiedades:
-     href: element.slice(element.indexOf('](h') + 2, -1),
-     text: element.slice(1, element.indexOf(']')),
-     file: fileContent // o newRoute?
-   };
-});
+      href: element.slice(element.indexOf('](h') + 2, -1),
+      text: element.slice(1, element.indexOf(']')),
+      file: fileContent
+    };
+  });
+}
 
 //  --función validUrl toma el arreglo de los objetos y valida los links
 
