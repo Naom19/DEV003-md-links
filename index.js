@@ -1,12 +1,19 @@
-const { existsRoute, getAbsolutePath, fileExt, readFiles,
-extractLinks } = require('./api.js');
+const { 
+  existsRoute,
+  getAbsolutePath, 
+  fileExt, 
+  readFiles, 
+  extractLinks, 
+  urlToObjects,
+  validUrl,
+} = require('./api.js');
 
 
 // Definimos la función mdLinks que recibe 2 parámetros y devuelve una nueva promesa (asíncrona)
 const mdLinks = (route, options) => {
   // nota las opciones son objetos
   // La nueva promesa toma un callback con sus parámetros-funciones resolve y reject (relacionados a then y catch)
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
     // nota: Promise es un constructor que recibe una función callback que tiene resolve y reject como parámetros
     // A) Identificar si la ruta existe
     if (!existsRoute(route)) {
@@ -21,11 +28,16 @@ const mdLinks = (route, options) => {
     // En caso de que sea un directorio: filtra archivos md y resuelve un Array de objetos(links)
     let mdFiles = [];
    
-    if (fileExt(newRoute) === ".md") {
+    if (fileExt(newRoute)) {
       mdFiles.push(newRoute);
     }
-
-    if (!extractLinks)
+    // Aquí añadimos el manejo de directorios (pendiente)
+   
+    try {
+      const fileContent = await Promise.all(
+        mdFiles.map((file) => readFiles(file))
+      );
+    }
     
 
   });

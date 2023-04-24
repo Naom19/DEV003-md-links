@@ -90,7 +90,6 @@ async function validUrl(urlToObjects) {
         };
       }
     });
-
     // Esperamos a que se completen todas las promesas que validan
     const validatedObjects = await Promise.all(validatePromises);
   
@@ -108,3 +107,5 @@ module.exports.getAbsolutePath = getAbsolutePath;
 module.exports.fileExt = fileExt;
 module.exports.readFiles = readFiles;
 module.exports.extractLinks = extractLinks;
+module.exports.urlToObjects = urlToObjects;
+module.exports.validUrl = validUrl;
