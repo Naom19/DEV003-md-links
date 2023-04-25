@@ -10,7 +10,7 @@
     "commit": "a63a770ea33332882790401851df337734b0b734"
   },
   "scripts": {
-    "test": "jest --coverage"
+    "test": "jest"
   },
   "devDependencies": {
     "jest": "^29.5.0"
