@@ -62,9 +62,8 @@ mdLinks('C:\\Users\\Naomi\\DEV003-md-links\\README.md', { validate: true })
     console.log(error);
   });
 
-// resolve se va a invocar al final
+// resolve se va a invoca al final
 // nota una vez terminada la función mdLinks, se va a ejecutar en CLI (donde se imprime con console.log)
-// las funciones pequeñas de api.js tienen que ser funciones puras
 
 module.exports = () => {
   mdLinks
