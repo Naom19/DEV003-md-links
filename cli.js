@@ -1,14 +1,6 @@
 const { mdLinks } = require('./index');
 // fn para obtener el valor del path
 
-/* mdLinks('./notvalidroute/').then(() => {
-
-})
-.cach((error) => {
-    console.log(error);
-});
-console.log() */
-
 const path = process.argv[2]
 const validate = process.argv.includes('--validate') || process.argv.includes('--v');
 const stats = process.argv.includes('--stats') || process.argv.includes('--s');
@@ -34,3 +26,29 @@ const brokenLinks = (link) => {
     return uniqueFails.size;
 };
 
+mdLinks(path, options).then(result => {
+    if (stats && validate) {
+        console.log('Total links:', totalLinks(result))
+        console.log('Unique links:', uniqueLinks(result))
+        console.log('Broken links:', brokenLinks(result))
+    } else if (validate) {
+        result.forEach(links => {
+            console.log('href:', links.href)
+            console.log('text:', links.text)
+            console.log('file:', links.file)
+            console.log('status:', links.status)
+            console.log('ok:', links.ok)
+        })
+    } else if (stats) {
+        console.log('total', totalLinks(result))
+        console.log('Unique', uniqueLinks(result))
+    } else {
+        result.forEach(links => {
+            console.log('href', links.href)
+            console.log('text', links.text)
+            console.log('file', links.file)
+        })
+    }
+}).catch((error) => {
+    console.log(error)
+});
