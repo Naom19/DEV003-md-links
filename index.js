@@ -65,7 +65,7 @@ mdLinks('C:\\Users\\Naomi\\DEV003-md-links\\README.md', { validate: true })
 // resolve se va a invoca al final
 // nota una vez terminada la función mdLinks, se va a ejecutar en CLI (donde se imprime con console.log)
 
-module.exports = () => {
+module.exports = {
   mdLinks
 };
 
