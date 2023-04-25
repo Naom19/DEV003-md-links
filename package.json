@@ -11,9 +11,5 @@
   },
   "scripts": {
     "test": "jest --coverage"
-  },
-  "dependencies": {
-    "node-fetch": "^18.12.1"
-  
   }
 }
