@@ -36,6 +36,13 @@ const mdLinks = (route, options) => {
 
         if (options && options.validate) {
           //llamar validUrl
+          validUrl(linkObjects)
+            .then((validatedObjects) => {
+              resolve(validatedObjects);
+            })
+            .catch((error) => {
+              reject("Error validando URLs/ Error validating URLs");
+            });
         } else {
           resolve(linkObjects);
         }
