@@ -16,7 +16,7 @@ const existsRoute = (route) => fs.existsSync(route);
  */
 const getAbsolutePath = (route) => path.isAbsolute(route) ? route : path.resolve(route);
 // crear archivo md para probar las funciones auxiliares
-
+console.log(getAbsolutePath('README.md'));
 // crear función que valide si el archivo es md con extname (extension md)y buscar si la extension es .md
 // la función se describe con operador ternario y que devuelva solo los archivos .md, en index se pasa con if
 
@@ -38,6 +38,13 @@ function readFiles(newRoute) {
         });
     })
 };
+/* readFiles('README.md')
+ .then((result) => {
+  console.log(result);
+})
+.catch((error) => {
+  console.log(error);
+}); */
 
 // --esta función toma el string y compara si tiene https(link) y devuelve un arreglo con los links
 function extractLinks(fileContent) {
@@ -49,22 +56,24 @@ function extractLinks(fileContent) {
     return arrayUrl;//[ '[Google](https://www.google.com)', '[Google](https://www.google.com)']
 };
 
-// abrir el archivo
-archivo = open('ruta que me pusieron al ejecutar el api en terminal')
+readFiles('README.md')
+.then((result) => {
+  extractLinks(result, 'README.md')
+})
 
-resultado = extractLinks(archivo)
-arreglodeObjetos = extraerObjectos(resultado)
 
 // --urlToObjects toma el arreglo de links y lo transforma en un arreglo de objetos con .map
-function urlToObjects (arrayUrl) {
+function urlToObjects (arrayUrl, newRoute) {
   return arrayUrl.map((element) => {
     return {
       href: element.slice(element.indexOf('](h') + 2, -1),
       text: element.slice(1, element.indexOf(']')),
-      file: fileContent
+      file: newRoute
     };
   });
 }
+//console.log(urlToObjects(arrayUrl, newRoute));
+
 
 //  --función validUrl toma el arreglo de los objetos y valida los links
 
@@ -103,10 +112,12 @@ async function validUrl(urlToObjects) {
 
 
 
-module.exports.existsRoute = existsRoute;
-module.exports.getAbsolutePath = getAbsolutePath;
-module.exports.fileExt = fileExt;
-module.exports.readFiles = readFiles;
-module.exports.extractLinks = extractLinks;
-module.exports.urlToObjects = urlToObjects;
-module.exports.validUrl = validUrl;
+module.exports = {
+  existsRoute,
+  getAbsolutePath,
+  fileExt,
+  readFiles,
+  extractLinks,
+  urlToObjects,
+  validUrl,
+}; 
