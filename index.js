@@ -5,11 +5,12 @@ const {
   readFiles,
   extractLinks,
   urlToObjects,
+  linkObjects,
   validUrl,
 } = require('./api.js');
 
 const mdLinks = (route, options) => {
-  return new Promise(async (resolve, reject) => {
+  return new Promise((resolve, reject) => {
     if (!existsRoute(route)) {
       // B) Si no existe se rechaza la promesa (reject) 
       reject('The route does not exist');
@@ -24,40 +25,42 @@ const mdLinks = (route, options) => {
     if (fileExt(newRoute)) {
       mdFiles.push(newRoute);
     }
-    try {
-      const fileContents = await Promise.all(
-        mdFiles.map((file) => readFiles(file))
-      );
 
-      const allLinks = fileContents.flatMap((fileContent) => {
-        return extractLinks(fileContent);
-      });
-      
+    Promise.all(mdFiles.map((file) => readFiles(file)))
+      .then((fileContents) => {
+        const allLinks = fileContents.flatMap((fileContent) => {
+          return extractLinks(fileContent);
+        });
 
-      const linkObjects = urlToObjects(allLinks, mdFiles);
+        const linkObjects = urlToObjects(allLinks, mdFiles);
 
-      if (options && options.validate) {
-        const validatedLinks = await validUrl(linkObjects);
-        resolve(validatedLinks);
-      } else {
-        resolve(linkObjects);
-      }
-    } catch (error) {
-      reject("Error procesando archivos md / Error processing Markdown files");
-    }
-
-  });
+        if (options && options.validate) {
+          validUrl(linkObjects) => {
+        .then((validatedLinks) => {
+            resolve(validatedLinks);
+          })
+    .catch((error) => {
+      reject("Error validando links / Error validating links");
+    });
+} else {
+  resolve(linkObjects);
+}
+})
+  .catch ((error) => {
+  reject("Error procesando archivos md / Error processing md files")
+});
+});
 };
 
 //console.log(existsRoute);
 
 mdLinks('C:\\Users\\Naomi\\DEV003-md-links\\README.md', { validate: true })
-.then((result) => {
-  console.log(result);
-})
-.catch((error) => {
-  console.log(error);
-});
+  .then((result) => {
+    console.log(result);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 
 // resolve se va a invocar al final
 // nota una vez terminada la función mdLinks, se va a ejecutar en CLI (donde se imprime con console.log)
