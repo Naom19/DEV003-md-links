@@ -102,6 +102,7 @@ async function validUrl(urlToObjects) {
     });
     // Esperamos a que se completen todas las promesas que validan
     const validatedObjects = await Promise.all(validatePromises);
+    
   
     // Devuelve los resultados de validación
     return validatedObjects;

@@ -35,20 +35,13 @@ const mdLinks = (route, options) => {
         const linkObjects = urlToObjects(allLinks, mdFiles);
 
         if (options && options.validate) {
-          validUrl(linkObjects) => {
-        .then((validatedLinks) => {
-            resolve(validatedLinks);
-          })
-    .catch((error) => {
-      reject("Error validando links / Error validating links");
-    });
-} else {
-  resolve(linkObjects);
-}
-})
-  .catch ((error) => {
-  reject("Error procesando archivos md / Error processing md files")
-});
+          //llamar validUrl
+        } else {
+          resolve(linkObjects);
+        }
+      }) .catch ((error) => {
+          reject("Error procesando archivos md / Error processing md files")
+      });
 });
 };
 
