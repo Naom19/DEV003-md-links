@@ -17,7 +17,7 @@ const existsRoute = (route) => fs.existsSync(route);
  */
 const getAbsolutePath = (route) => path.isAbsolute(route) ? route : path.resolve(route);
 // crear archivo md para probar las funciones auxiliares
-console.log(getAbsolutePath('README.md'));
+//-------------------------------------------------console.log(getAbsolutePath('README.md')); ----------------------------------------------------------
 // crear función que valide si el archivo es md con extname (extension md)y buscar si la extension es .md
 // la función se describe con operador ternario y que devuelva solo los archivos .md, en index se pasa con if
 
@@ -39,13 +39,6 @@ function readFiles(newRoute) {
     });
   })
 };
-/* readFiles('README.md')
- .then((result) => {
-  console.log(result);
-})
-.catch((error) => {
-  console.log(error);
-}); */
 
 // --esta función toma el string y compara si tiene https(link) y devuelve un arreglo con los links
 function extractLinks(fileContent) {
